@@ -88,11 +88,41 @@ void test()
 		}
 	}
 }
-//在提一种思路，如果数组中的元素已经排好序了，则它的元素应该与它的下标相同，可以根据这个
-//方法实现快速的排序，从而找到重复的数字，当然，这种方法只针对特殊情况。
+
 int main()
 {
 	test();
 	system("pause");
 	return 0;
 }
+//在提一种思路，如果数组中的元素已经排好序了，则它的元素应该与它的下标相同，可以根据这个
+//方法实现快速的排序，从而找到重复的数字，当然，这种方法只针对特殊情况。
+//代码中尽管有两重循环，但每个数字最多只要交换两次就能找到属于它的位置，因此总的时间复杂度为O(n),
+//空间复杂度为O(1);
+#if 0
+bool duplicate(int numbers[], int *temp, int length)
+{
+	if (numbers == NULL || length <= 0)
+		return false;
+	for (int i = 0; i < length; i++)
+	{
+		if (numbers[i]<0 || numbers[i]>length - 1)
+			return false;
+	}
+	for (int i = 0; i < length; i++)
+	{
+		while (numbers[i] != i)
+		{
+			if (numbers[i] == numbers[numbers[i]])
+			{
+				*temp = numbers[i];
+				return true;
+			}
+			//交换numbers[i]与numbers[numbers[i]]
+			int t = numbers[i];
+			numbers[i] = numbers[numbers[i]];
+			numbers[numbers[i]] = t;
+		}
+	}
+}
+#endif
